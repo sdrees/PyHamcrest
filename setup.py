@@ -6,6 +6,7 @@ import re
 if os.environ.get('PYTHON_BUILD_DOCKER', None) == 'true':
     del os.link
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 try:
     from setuptools import setup, find_packages
@@ -14,15 +15,12 @@ except ImportError:
     use_setuptools()
     from setuptools import setup, find_packages
 
-def local(fname):
-    return os.path.join(os.path.dirname(__file__), fname)
-
 def read(fname):
-    return open(local(fname)).read()
+    return open(fname).read()
 
 # On Python 3, we can't "from hamcrest import __version__" (get ImportError),
 # so we extract the variable assignment and execute it ourselves.
-fh = open(local('src/hamcrest/__init__.py'))
+fh = open('src/hamcrest/__init__.py')
 try:
     for line in fh:
         if re.match('__version__.*', line):
@@ -50,7 +48,7 @@ params = dict(
     package_dir = {'': 'src'},
     provides=['hamcrest'],
     long_description=read('README.rst'),
-    install_requires=['setuptools', 'six'],
+    install_requires=['six'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
@@ -65,6 +63,9 @@ params = dict(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: Jython',
         'Programming Language :: Python :: Implementation :: PyPy',
