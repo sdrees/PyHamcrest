@@ -4,20 +4,17 @@ __license__ = "BSD, see License.txt"
 
 import re
 
-import six
-
 from hamcrest.core.base_matcher import BaseMatcher
-from hamcrest.core.helpers.hasmethod import hasmethod
+
 
 class StringMatchesPattern(BaseMatcher):
-
     def __init__(self, pattern):
         self.pattern = pattern
 
     def describe_to(self, description):
-        description.append_text("a string matching '") \
-                                   .append_text(self.pattern.pattern) \
-                                   .append_text("'")
+        description.append_text("a string matching '").append_text(
+            self.pattern.pattern
+        ).append_text("'")
 
     def _matches(self, item):
         return self.pattern.search(item) is not None
@@ -34,7 +31,7 @@ def matches_regexp(pattern):
     evaluated object.
 
     """
-    if isinstance(pattern, six.string_types):
+    if isinstance(pattern, str):
         pattern = re.compile(pattern)
 
     return StringMatchesPattern(pattern)

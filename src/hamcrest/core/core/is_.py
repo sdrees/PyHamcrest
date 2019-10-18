@@ -1,15 +1,14 @@
-from __future__ import absolute_import
 __author__ = "Jon Reid"
 __copyright__ = "Copyright 2011 hamcrest.org"
 __license__ = "BSD, see License.txt"
 
 from hamcrest.core.base_matcher import BaseMatcher
-from hamcrest.core.helpers.wrap_matcher import wrap_matcher, is_matchable_type
+from hamcrest.core.helpers.wrap_matcher import is_matchable_type, wrap_matcher
+
 from .isinstanceof import instance_of
 
 
 class Is(BaseMatcher):
-
     def __init__(self, matcher):
         self.matcher = matcher
 

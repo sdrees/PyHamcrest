@@ -3,28 +3,6 @@ dist: xenial
 
 matrix:
   include:
-    - python: 2.7
-      env:
-        - TOX_ENV=py26
-    - python: 2.7
-      env:
-        - TOX_ENV=py27
-    - python: 2.7
-      env:
-        - TOX_ENV=pypy2.7
-    - python: 2.7
-      env:
-        - TOX_ENV=py27-numpy
-    - python: 3.6
-      env:
-        - TOX_ENV=py32
-    - python: 3.6
-      env:
-        - TOX_ENV=py33
-    - python: 3.6
-      dist: trusty
-      env:
-        - TOX_ENV=py34
     - python: 3.5
       env:
         - TOX_ENV=py35
@@ -62,12 +40,17 @@ matrix:
     - python: 3.6
       env:
         - TOX_ENV=docs-py3
+    - python: 3.7
+      env:
+        - TOX_ENV=check-format
 
 before_install:
   - export EASY_SETUP_URL='http://peak.telecommunity.com/dist/ez_setup.py'
 
 install:
-  - pip install --upgrade tox coveralls
+  - pip install --upgrade pip tox coveralls
+  - python --version
+  - pip --version
 
 script:
   - tox -e $TOX_ENV

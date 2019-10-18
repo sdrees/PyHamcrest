@@ -1,8 +1,8 @@
+from collections.abc import Iterator
+
 __author__ = "Jon Reid"
 __copyright__ = "Copyright 2011 hamcrest.org"
 __license__ = "BSD, see License.txt"
-
-import six
 
 
 class QuasiSequence(object):
@@ -13,7 +13,7 @@ class QuasiSequence(object):
         return 2
 
 
-class QuasiSequenceIterator(six.Iterator):
+class QuasiSequenceIterator(Iterator):
     def __init__(self):
         self.index = 1
 

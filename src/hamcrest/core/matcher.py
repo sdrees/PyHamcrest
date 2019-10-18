@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from .selfdescribing import SelfDescribing
 
 __author__ = "Jon Reid"
@@ -31,7 +30,7 @@ class Matcher(SelfDescribing):
         :returns: ``True`` if ``item`` matches, otherwise ``False``.
 
         """
-        raise NotImplementedError('matches')
+        raise NotImplementedError("matches")
 
     def describe_mismatch(self, item, mismatch_description):
         """Generates a description of why the matcher has not accepted the
@@ -49,4 +48,4 @@ class Matcher(SelfDescribing):
             to.
 
         """
-        raise NotImplementedError('describe_mismatch')
+        raise NotImplementedError("describe_mismatch")

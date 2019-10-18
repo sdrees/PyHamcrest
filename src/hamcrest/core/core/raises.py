@@ -1,9 +1,8 @@
-from weakref import ref
 import re
 import sys
+from weakref import ref
+
 from hamcrest.core.base_matcher import BaseMatcher
-from hamcrest.core.helpers.wrap_matcher import wrap_matcher
-from hamcrest.core.compat import is_callable
 
 __author__ = "Per Fagrell"
 __copyright__ = "Copyright 2013 hamcrest.org"
@@ -18,7 +17,7 @@ class Raises(BaseMatcher):
         self.function = None
 
     def _matches(self, function):
-        if not is_callable(function):
+        if not callable(function):
             return False
 
         self.function = ref(function)
@@ -38,11 +37,11 @@ class Raises(BaseMatcher):
         return False
 
     def describe_to(self, description):
-        description.append_text('Expected a callable raising %s' % self.expected)
+        description.append_text("Expected a callable raising %s" % self.expected)
 
     def describe_mismatch(self, item, description):
-        if not is_callable(item):
-            description.append_text('%s is not callable' % item)
+        if not callable(item):
+            description.append_text("%s is not callable" % item)
             return
 
         function = None if self.function is None else self.function()
@@ -52,12 +51,17 @@ class Raises(BaseMatcher):
                 return
 
         if self.actual is None:
-            description.append_text('No exception raised.')
+            description.append_text("No exception raised.")
         elif isinstance(self.actual, self.expected) and self.pattern is not None:
-            description.append_text('Correct assertion type raised, but the expected pattern ("%s") not found.' % self.pattern)
+            description.append_text(
+                'Correct assertion type raised, but the expected pattern ("%s") not found.'
+                % self.pattern
+            )
             description.append_text('\n          message was: "%s"' % str(self.actual))
         else:
-            description.append_text('%r of type %s was raised instead' % (self.actual, type(self.actual)))
+            description.append_text(
+                "%r of type %s was raised instead" % (self.actual, type(self.actual))
+            )
 
 
 def raises(exception, pattern=None):
